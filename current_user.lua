@@ -3,4 +3,4 @@
 
 wrk.method = "POST"
 wrk.body = "operationName=currentUser&query=query currentUser { currentUser { email } }"
-wrk.headers["Authorization"] = "Bearer SFMyNTY.g2gDYSduBgCzBJQwewFiAAFRgA.Wg3LLVeEw2EedleJFFj-i4mhJ6--BtfHwzWLEkydIv0"
+wrk.headers["Authorization"] = "Bearer SFMyNTY.g2gDYQNuBgC7tzLGfgFiAAFRgA.TLEZl73fVKbAeNw8um5tN1tWBY3JSEjuXaxfYgE7X7c"

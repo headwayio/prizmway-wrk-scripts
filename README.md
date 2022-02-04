@@ -1,4 +1,4 @@
-# wrk_scripts
+# prizmway-wrk-scripts
 
 Scripts for use with the `wrk` HTTP benchmarking tool - https://github.com/wg/wrk
 

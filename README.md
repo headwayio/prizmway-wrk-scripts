@@ -13,7 +13,7 @@ sudo ln -s ~/PATH/TO/wrk/wrk /usr/local/bin
 and then just use `wrk` anywhere. For example...
 
 ```bash
-wrk -t8 -c1000 -d5s --latency https://pzfightclub.stg.trimble-transportation.com/graph -s ~/Documents/scripts/wrk_scripts/post.lua
+wrk -t8 -c1000 -d5s --latency https://pzfightclub.stg.trimble-transportation.com/graph -s ~/Documents/scripts/prizmway-wrk-scripts/post.lua
 ```
 
 Where the `-s` option takes the path to a .lua script you'd like to run as part of the `wrk` test.

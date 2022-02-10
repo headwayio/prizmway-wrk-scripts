@@ -12,15 +12,13 @@
 #   exit 1
 # }
 
-auth_token=""
 script=""
 threads=0
 connections=0
 duration=0
 
-while getopts a:s:t:c:d: o; do
+while getopts s:t:c:d: o; do
   case $o in
-    (a) auth_token=$OPTARG;;
     (s) script=$OPTARG;;
     (t) threads=$OPTARG;;
     (c) connections=$OPTARG;;
@@ -30,11 +28,17 @@ while getopts a:s:t:c:d: o; do
 done
 shift "$((OPTIND - 1))"
 
-echo -------- starting stress test... --------
+echo -------- starting stress test --------
 echo "script: $script"
 echo "auth_token: $auth_token"
 echo "threads: $threads"
 echo "connections: $connections"
 echo "duration: $duration"
 
+auth_token=$(curl http://localhost:4000/stress-test/start)
+echo "auth_token: $auth_token"
+
 eval env token=$auth_token wrk -t $threads -c $connections -d "$duration"s --latency http://localhost:4000/graph -s ./lua_scripts/$script.lua
+
+echo -------- cleaning up after stress test --------
+curl http://localhost:4000/stress-test/finish?auth_token=$auth_token

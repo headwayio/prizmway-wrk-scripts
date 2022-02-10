@@ -37,4 +37,4 @@ echo "threads: $threads"
 echo "connections: $connections"
 echo "duration: $duration"
 
-eval env token=$token wrk -t $threads -c $connections -d "$duration"s --latency http://localhost:4000/graph -s ./lua_scripts/$script.lua
+eval env token=$auth_token wrk -t $threads -c $connections -d "$duration"s --latency http://localhost:4000/graph -s ./lua_scripts/$script.lua

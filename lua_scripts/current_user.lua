@@ -1,7 +1,13 @@
 -- Get the current user
 
+query = [[
+  query currentUser {
+    currentUser { email }
+  }
+]]
+
 wrk.method = "POST"
-wrk.body = '{"operationName":"currentUser","query":"query currentUser { currentUser { email } }"}'
+wrk.body = '{"query":"' .. string.gsub(query, '\n', '') .. '"}'
 wrk.headers["Authorization"] = string.format("Bearer %s", os.getenv("auth_token"))
 wrk.headers["Content-Type"] = "application/json"
 

@@ -30,15 +30,25 @@ shift "$((OPTIND - 1))"
 
 echo -------- starting stress test --------
 echo "script: $script"
-echo "auth_token: $auth_token"
 echo "threads: $threads"
 echo "connections: $connections"
 echo "duration: $duration"
 
-auth_token=$(curl http://localhost:4000/stress-test/start)
+response=$(curl http://localhost:4000/stress-test/start)
+
+auth_token=$(echo $response | jq '.auth_token')
+shipper_uuid=$(echo $response | jq '.shipper_uuid')
+trailer_type_uuid=$(echo $response | jq '.trailer_type_uuid')
+shipper_location_type_uuid=$(echo $response | jq '.shipper_location_type_uuid')
+loading_type_uuid=$(echo $response | jq '.loading_type_uuid')
+
 echo "auth_token: $auth_token"
+echo "shipper_uuid: $shipper_uuid"
+echo "trailer_type_uuid: $trailer_type_uuid"
+echo "shipper_location_type_uuid: $shipper_location_type_uuid"
+echo "loading_type_uuid: $loading_type_uuid"
 
-eval env token=$auth_token wrk -t $threads -c $connections -d "$duration"s --latency http://localhost:4000/graph -s ./lua_scripts/$script.lua
+eval env auth_token=$auth_token shipper_uuid=$shipper_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency http://localhost:4000/graph -s ./lua_scripts/$script.lua
 
-echo -------- cleaning up after stress test --------
-curl http://localhost:4000/stress-test/finish?auth_token=$auth_token
+# echo -------- cleaning up after stress test --------
+# curl http://localhost:4000/stress-test/finish?auth_token=$auth_token

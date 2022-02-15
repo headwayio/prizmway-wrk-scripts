@@ -2,7 +2,7 @@
 
 wrk.method = "POST"
 wrk.body = '{"operationName":"currentUser","query":"query currentUser { currentUser { email } }"}'
-wrk.headers["Authorization"] = string.format("Bearer %s", os.getenv("token"))
+wrk.headers["Authorization"] = string.format("Bearer %s", os.getenv("auth_token"))
 wrk.headers["Content-Type"] = "application/json"
 
 response = function(status, headers, body)

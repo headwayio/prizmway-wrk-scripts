@@ -12,6 +12,10 @@ sudo ln -s ~/PATH/TO/wrk/wrk /usr/local/bin
 
 In addition to allowing you to use this utility, the symlink allows you to simply call `wrk` from anywhere.
 
+## Install `jq`
+
+https://stedolan.github.io/jq/
+
 ## Use
 
 To use this script, run it via the command `sh ./run.sh` and provide the following flags:

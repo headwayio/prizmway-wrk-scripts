@@ -18,4 +18,3 @@ response = function(status, headers, body)
     io.write("Body:\n")
     io.write(body .. "\n\n")
   end
-

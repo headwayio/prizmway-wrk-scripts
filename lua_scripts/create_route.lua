@@ -2,6 +2,9 @@
 -- The server will need to make two geocoding requests per shipper lane, which may take a small amount of time;
 -- make sure to set a substantial duration when running this operation to make sure all geocoding requests can be satisfied.
 
+trailer_type_uuid = string.format(os.getenv("trailer_type_uuid"))
+carrier_uuid = string.format(os.getenv("carrier_uuid"))
+
 query = [[
     mutation createRoutes($routes: [RouteInput]!) {
         createRoutes(routes: $routes) {
@@ -28,8 +31,8 @@ variables = [[
             },
             "originProximity": 25,
             "destinationProximity": 25,
-            "trailerTypeUuid": "d69987bf-ff26-4ce1-8fae-6a24a86475a3",
-            "carrierUuid": "4686e555-8ac2-4014-acc1-7ff0a2d2689d"
+            "trailerTypeUuid": "]] .. trailer_type_uuid .. [[",
+            "carrierUuid": "]] .. carrier_uuid .. [["
         }
     ]
 ]]

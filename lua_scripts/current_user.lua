@@ -2,12 +2,14 @@
 
 query = [[
   query currentUser {
-    currentUser { email }
+    currentUser {
+      email
+    }
   }
 ]]
 
 wrk.method = "POST"
-wrk.body = '{"query":"' .. string.gsub(query, '\n', '') .. '"}'
+wrk.body = '{"query": "' .. string.gsub(query, '\n', '') .. '"}'
 wrk.headers["Authorization"] = string.format("Bearer %s", os.getenv("auth_token"))
 wrk.headers["Content-Type"] = "application/json"
 

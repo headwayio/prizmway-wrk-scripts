@@ -19,34 +19,34 @@ variables = [[
   "shipperLane": {
     "shipperUuid": "]] .. shipper_uuid .. [[",
     "trailerTypeUuid": "]] .. trailer_type_uuid .. [[",
-    "laneId":"",
-    "miles":200,
-    "destinationLocationUuid":null,
+    "laneId": "",
+    "miles": 200,
+    "destinationLocationUuid": null,
     "destinationLocation": {
       "shipperLocationTypeUuid": "]] .. shipper_location_type_uuid .. [[",
-      "name":"Portland",
-      "address":"Portland, OR 97213",
-      "accommodations":[],
-      "loadingTypeUuid":"]] .. loading_type_uuid .. [[",
-      "loadingBeginTime":null,
-      "loadingEndTime":null
+      "name": "Portland",
+      "address": "Portland, OR 97213",
+      "accommodations": [],
+      "loadingTypeUuid": "]] .. loading_type_uuid .. [[",
+      "loadingBeginTime": null,
+      "loadingEndTime": null
     },
-    "originLocationUuid":null,
+    "originLocationUuid": null,
     "originLocation": {
-      "shipperLocationTypeUuid":"]] .. shipper_location_type_uuid .. [[",
-      "name":"Tuxedo",
-      "address":"Tuxedo, NY 10987",
-      "accommodations":[],
-      "loadingTypeUuid":"]] .. loading_type_uuid .. [[",
-      "loadingBeginTime":null,
-      "loadingEndTime":null
+      "shipperLocationTypeUuid": "]] .. shipper_location_type_uuid .. [[",
+      "name": "Tuxedo",
+      "address": "Tuxedo, NY 10987",
+      "accommodations": [],
+      "loadingTypeUuid": "]] .. loading_type_uuid .. [[",
+      "loadingBeginTime": null,
+      "loadingEndTime": null
     },
-    "stops":[]
+    "stops": []
   }
 ]]
 
 wrk.method = "POST"
-wrk.body = '{"variables": {' .. string.gsub(variables, '\n', '') .. '},"query": "' .. string.gsub(query, '\n', '') .. '"}'
+wrk.body = '{"variables": {' .. string.gsub(variables, '\n', '') .. '}, "query": "' .. string.gsub(query, '\n', '') .. '"}'
 wrk.headers["Authorization"] = string.format("Bearer %s", os.getenv("auth_token"))
 wrk.headers["Content-Type"] = "application/json"
 

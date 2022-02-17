@@ -28,7 +28,7 @@ while getopts s:t:c:d: o; do
 done
 shift "$((OPTIND - 1))"
 
-echo -------- starting stress test --------
+echo -------- setting up stress test --------
 echo "script: $script"
 echo "threads: $threads"
 echo "connections: $connections"
@@ -49,8 +49,11 @@ echo "carrier_uuid: $carrier_uuid"
 echo "trailer_type_uuid: $trailer_type_uuid"
 echo "shipper_location_type_uuid: $shipper_location_type_uuid"
 echo "loading_type_uuid: $loading_type_uuid"
+echo "\n"
 
+echo -------- starting wrk --------
 eval env auth_token=$auth_token shipper_uuid=$shipper_uuid carrier_uuid=$carrier_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency http://localhost:4000/graph -s ./lua_scripts/$script.lua
 
-# echo -------- cleaning up after stress test --------
-# curl http://localhost:4000/stress-test/finish?auth_token=$auth_token
+echo "\n"
+echo -------- cleaning up after stress test --------
+curl "http://localhost:4000/stress-test/finish?auth_token=$auth_token&shipper_uuid=$shipper_uuid&carrier_uuid=$carrier_uuid"

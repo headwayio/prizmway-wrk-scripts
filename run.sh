@@ -13,16 +13,18 @@
 # }
 
 script=""
+url=""
 threads=0
 connections=0
 duration=0
 
-while getopts s:t:c:d: o; do
+while getopts s:t:c:d:u: o; do
   case $o in
     (s) script=$OPTARG;;
     (t) threads=$OPTARG;;
     (c) connections=$OPTARG;;
     (d) duration=$OPTARG;;
+    (u) url=$OPTARG;;
     # (*) usage
   esac
 done
@@ -30,11 +32,12 @@ shift "$((OPTIND - 1))"
 
 echo -------- setting up stress test --------
 echo "script: $script"
+echo "url: $url"
 echo "threads: $threads"
 echo "connections: $connections"
 echo "duration: $duration"
 
-response=$(curl http://localhost:4000/stress-test/start)
+response=$(curl $url/stress-test/start)
 
 auth_token=$(echo $response | jq '.auth_token')
 shipper_uuid=$(echo $response | jq '.shipper_uuid')
@@ -52,8 +55,8 @@ echo "loading_type_uuid: $loading_type_uuid"
 echo "\n"
 
 echo -------- starting wrk --------
-eval env auth_token=$auth_token shipper_uuid=$shipper_uuid carrier_uuid=$carrier_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency http://localhost:4000/graph -s ./lua_scripts/$script.lua
+eval env auth_token=$auth_token shipper_uuid=$shipper_uuid carrier_uuid=$carrier_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency $url/graph -s ./lua_scripts/$script.lua
 
 echo "\n"
 echo -------- cleaning up after stress test --------
-curl "http://localhost:4000/stress-test/finish?auth_token=$auth_token&shipper_uuid=$shipper_uuid&carrier_uuid=$carrier_uuid"
+curl "$url/stress-test/finish?auth_token=$auth_token&shipper_uuid=$shipper_uuid&carrier_uuid=$carrier_uuid"

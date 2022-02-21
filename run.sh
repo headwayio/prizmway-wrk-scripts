@@ -14,6 +14,7 @@
 
 script=""
 url=""
+key=""
 threads=0
 connections=0
 duration=0
@@ -25,6 +26,7 @@ while getopts s:t:c:d:u: o; do
     (c) connections=$OPTARG;;
     (d) duration=$OPTARG;;
     (u) url=$OPTARG;;
+    (k) key=$OPTARG;;
     # (*) usage
   esac
 done
@@ -37,7 +39,7 @@ echo "threads: $threads"
 echo "connections: $connections"
 echo "duration: $duration"
 
-response=$(curl $url/stress-test/start)
+response=$(curl $url/stress-test/start?stress-test-preshared-key=$key)
 
 auth_token=$(echo $response | jq '.auth_token')
 shipper_uuid=$(echo $response | jq '.shipper_uuid')
@@ -56,7 +58,3 @@ echo "\n"
 
 echo -------- starting wrk --------
 eval env auth_token=$auth_token shipper_uuid=$shipper_uuid carrier_uuid=$carrier_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency $url/graph -s ./lua_scripts/$script.lua
-
-echo "\n"
-echo -------- cleaning up after stress test --------
-curl "$url/stress-test/finish?auth_token=$auth_token&shipper_uuid=$shipper_uuid&carrier_uuid=$carrier_uuid"

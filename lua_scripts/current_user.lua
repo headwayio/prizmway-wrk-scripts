@@ -3,7 +3,7 @@
 query = [[
   query currentUser {
     currentUser {
-      email
+      uuid
     }
   }
 ]]

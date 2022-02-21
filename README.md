@@ -29,6 +29,8 @@ If you are unable to run `jq` on your command line, you may need to adjust the p
 To use this script, run it via the command `sh ./run.sh` and provide the following flags:
 
 `-s` - the name of the .lua script you want to run (without the file extension, so just like `create_lane`)
+`-u` - the url to test
+`-k` - the preshared key (not necessary in local dev, required for running against a production instance)
 `-t` - the number of threads you want `wrk` to use
 `-c` - the number of connections you want `wrk` to simulate
 `-d` - the duration of the `wrk` test
@@ -36,7 +38,7 @@ To use this script, run it via the command `sh ./run.sh` and provide the followi
 For example
 
 ```bash
-sh ./run.sh -s create_lane -t 2 -c 10 -d 5
+sh ./run.sh -s create_lane -t 2 -c 10 -d 5 -u http://localhost:4000 -k 1234
 ```
 
 ## Acceptance criteria

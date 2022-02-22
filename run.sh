@@ -58,3 +58,7 @@ echo "\n"
 
 echo -------- starting wrk --------
 eval env auth_token=$auth_token shipper_uuid=$shipper_uuid carrier_uuid=$carrier_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency $url/graph -s ./lua_scripts/$script.lua
+
+echo "\n"
+echo -------- cleaning up... --------
+curl "$url/stress-test/finish?auth_token=$auth_token"

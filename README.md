@@ -30,7 +30,7 @@ To use this script, run it via the command `sh ./run.sh` and provide the followi
 
 `-s` - the name of the .lua script you want to run (without the file extension, so just like `create_lane`)
 `-u` - the url to test
-`-k` - the preshared key (not necessary in local dev, required for running against a production instance)
+`-k` - the preshared key (not necessary in local dev, required for running against a production instance - more on this below)
 `-t` - the number of threads you want `wrk` to use
 `-c` - the number of connections you want `wrk` to simulate
 `-d` - the duration of the `wrk` test
@@ -40,6 +40,10 @@ For example
 ```bash
 sh ./run.sh -s create_lane -t 2 -c 10 -d 5 -u http://localhost:4000 -k 1234
 ```
+
+### Preshared key
+
+In order to run this script against the live "dev" instance of Prizmway/EngageLane, you'll need to provide the `-k` option - you can find this value in Headway's Prizmway OnePass vault. Note that it is not necessary for local testing.
 
 ## Acceptance criteria
 

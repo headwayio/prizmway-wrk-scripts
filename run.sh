@@ -57,7 +57,7 @@ echo "loading_type_uuid: $loading_type_uuid"
 echo "\n"
 
 echo -------- starting wrk --------
-eval env auth_token=$auth_token shipper_uuid=$shipper_uuid carrier_uuid=$carrier_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency $url/graph -s ./lua_scripts/$script.lua
+eval env auth_token=$auth_token shipper_uuid=$shipper_uuid carrier_uuid=$carrier_uuid trailer_type_uuid=$trailer_type_uuid shipper_location_type_uuid=$shipper_location_type_uuid loading_type_uuid=$loading_type_uuid wrk -t $threads -c $connections -d "$duration"s --latency $url/graph -s ./lua_scripts/$script.lua --timeout 20s
 
 echo "\n"
 echo -------- cleaning up... --------

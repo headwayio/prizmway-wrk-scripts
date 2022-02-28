@@ -19,7 +19,7 @@ threads=0
 connections=0
 duration=0
 
-while getopts s:t:c:d:u: o; do
+while getopts s:t:c:d:u:k: o; do
   case $o in
     (s) script=$OPTARG;;
     (t) threads=$OPTARG;;

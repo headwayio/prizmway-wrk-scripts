@@ -1,0 +1,34 @@
+Results of stress-test runs on 2/24/22
+
+
+sh ./run.sh -s create_lane -u https://pzfightclub.dev.trimble-transportation.com -t 4 -c 50 -d 10
+
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     4.01s   180.60ms   4.71s    77.08%
+    Req/Sec    20.58     24.17    96.00     88.89%
+  Latency Distribution
+     50%    4.03s 
+     75%    4.10s 
+     90%    4.15s 
+     99%    4.71s 
+  96 requests in 10.09s, 34.03KB read
+Requests/sec:      9.52
+Transfer/sec:      3.37KB
+
+
+
+
+
+sh ./run.sh -s create_route -u https://pzfightclub.dev.trimble-transportation.com -t 4 -c 50 -d 10
+
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.95s   212.31ms   4.56s    69.79%
+    Req/Sec    13.26     14.64    50.00     76.09%
+  Latency Distribution
+     50%    3.94s 
+     75%    4.05s 
+     90%    4.26s 
+     99%    4.56s 
+  96 requests in 10.04s, 33.75KB read
+Requests/sec:      9.57
+Transfer/sec:      3.36KB
